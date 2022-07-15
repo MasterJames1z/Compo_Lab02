@@ -23,20 +23,20 @@ app.component('product-display', {
 
                     <product-details :details="details"></product-details>
                     
-                <div
-                    v-for="(variant,index) in variants"
-                    :key="variant.id"
-                    @mouseover="updateVariant(index)"
-                    class="color-circle"
+                <div 
+                    v-for="(variant,index) in variants" 
+                    :key="variant.id" 
+                    @mouseover="updateVariant(index)" 
+                    class="color-circle" 
                     :style="{ backgroundColor: variant.color }">
                 </div>
 
-                <button
-                    class="button"
-                    :class="{disabledButton: !inStock}"
-                    :disabled="!inStock"
-                    v-on:click="addToCart">
-                    Add to Cart
+                <button 
+                    class="button" 
+                    :class="{ disabledButton: !inStock }" 
+                    :disabled=" !inStock" 
+                    v-on:click="addToCart"> 
+                    Add to cart 
                 </button>
 
                 <button 
@@ -46,6 +46,8 @@ app.component('product-display', {
                 </button>
             </div>
         </div>
+            <review-list v-if="reviews.length" :reviews="reviews"></review-list> 
+            <review-form @review-submited="addReview"></review-form>
     </div>`,
     data(){
         return {
@@ -53,13 +55,14 @@ app.component('product-display', {
             brand: 'SE 331',
 
             inventory: 100,
-            details: ['50% cotton', '30% wool', '20% polyester'],
+            details: ['50% cotton', '30% wool', '20% polyster'],
             variants: [
-                { id: 2234, color: 'green', image: './assets/images/socks_green.jpg',quantity:50},
-                { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg',quantity:50}
+                { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50 },
+                { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 50 }
             ],
             activeClass: true,
-            selectedVariant:0
+            selectedVariant: 0,
+            reviews:[]
         }
     },
     methods: {
@@ -76,7 +79,9 @@ app.component('product-display', {
         },
         removeInCart() {
             this.$emit('remove-in-cart')
-
+        },
+        addReview(review){
+            this.reviews.push(review)
         }
     },
     computed: {
