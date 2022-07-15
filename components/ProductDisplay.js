@@ -27,8 +27,8 @@ app.component('product-display', {
                     v-for="(variant,index) in variants"
                     :key="variant.id"
                     @mouseover="updateVariant(index)"
-                    class="color=circle"
-                    :style="{backgroundColor: variant.color}">
+                    class="color-circle"
+                    :style="{ backgroundColor: variant.color }">
                 </div>
 
                 <button
@@ -37,6 +37,12 @@ app.component('product-display', {
                     :disabled="!inStock"
                     v-on:click="addToCart">
                     Add to Cart
+                </button>
+
+                <button 
+                    class="button" 
+                    v-on:click="removeInCart"> 
+                    Remove 
                 </button>
             </div>
         </div>
@@ -50,7 +56,7 @@ app.component('product-display', {
             details: ['50% cotton', '30% wool', '20% polyester'],
             variants: [
                 { id: 2234, color: 'green', image: './assets/images/socks_green.jpg',quantity:50},
-                { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg',quantity:0}
+                { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg',quantity:50}
             ],
             activeClass: true,
             selectedVariant:0
@@ -58,13 +64,19 @@ app.component('product-display', {
     },
     methods: {
         addToCart(){
-            this.cart += 1
+            // this.cart += 1
+            // this.$emit('add-to-cart')
+            this.$emit('add-to-cart',this.variants[this.selectedVariant].id)
         },
         updateImage(variantImage){
             this.image = variantImage
         },
         updateVariant(index){
             this.selectedVariant = index;
+        },
+        removeInCart() {
+            this.$emit('remove-in-cart')
+
         }
     },
     computed: {

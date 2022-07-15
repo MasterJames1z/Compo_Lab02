@@ -9,10 +9,10 @@ const app = Vue.createApp({
             details: ['50% cotton', '30% wool', '20% polyester'],
             variants: [
                 { id: 2234, color: 'green', image: './assets/images/socks_green.jpg' ,quantity:50 ,onSale: true},
-                { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg' ,quantity:0 ,onSale: false}
+                { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg' ,quantity:50 ,onSale: true}
             ],
             selectedVariant:0,
-            cart: 0,
+            cart: [{id:2234,value:0},{id:2235,value:0}],
             premium: true
         }
     },
@@ -25,6 +25,21 @@ const app = Vue.createApp({
         },
         updateVariant(index){
             this.selectedVariant = index;
+        },
+        // updateCart(){
+        //     this.cart += 1;
+        // }
+        updateCart(id){
+            // this.cart.push(id);
+            if(id==2234){
+                this.cart[0].value+=1;
+             }else{
+                 this.cart[1].value+=1;
+             }
+        },
+        removeCart(){
+            this.cart.splice(0,1,{id:2234, value:0});
+            this.cart.splice(1,1,{id:2235, value:0});
         }
         
     },
