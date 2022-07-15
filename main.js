@@ -13,7 +13,7 @@ const app = Vue.createApp({
             ],
             selectedVariant:0,
             cart: 0,
-
+            premium: true
         }
     },
     methods: {
@@ -44,6 +44,6 @@ const app = Vue.createApp({
             }else{
                 return this.brand+' '+this.product+' '+ 'is not sale'
             }
-        }
+        },
     }
 })
